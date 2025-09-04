@@ -1,0 +1,1 @@
+TRUNCATE TABLE medicine_knowledge_base RESTART IDENTITY CASCADE;

@@ -22,7 +22,17 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/favicon.png",
+      "name": "MediStock Pharmacy Management",
+      "shortName": "MediStock",
+      "description": "Complete pharmacy management system with AI-powered insights",
+      "themeColor": "#3B82F6",
+      "backgroundColor": "#FFFFFF",
+      "display": "standalone",
+      "orientation": "portrait",
+      "startUrl": "/",
+      "scope": "/",
+      "lang": "en"
     },
     "plugins": [
       "expo-router",

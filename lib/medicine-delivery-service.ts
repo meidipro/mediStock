@@ -427,13 +427,13 @@ export class MedicineDeliveryService {
       }
       
       const totalDeliveries = deliveries?.length || 0;
-      const successfulDeliveries = deliveries?.filter(d => d.status === 'delivered').length || 0;
-      const failedDeliveries = deliveries?.filter(d => d.status === 'failed' || d.status === 'cancelled').length || 0;
+      const successfulDeliveries = deliveries?.filter((d: any) => d.status === 'delivered').length || 0;
+      const failedDeliveries = deliveries?.filter((d: any) => d.status === 'failed' || d.status === 'cancelled').length || 0;
       
       // Calculate average delivery time
-      const deliveredOrders = deliveries?.filter(d => d.status === 'delivered' && d.actual_delivery_time) || [];
+      const deliveredOrders = deliveries?.filter((d: any) => d.status === 'delivered' && d.actual_delivery_time) || [];
       const averageDeliveryTime = deliveredOrders.length > 0 
-        ? deliveredOrders.reduce((sum, delivery) => {
+        ? deliveredOrders.reduce((sum: number, delivery: any) => {
             const created = new Date(delivery.created_at);
             const delivered = new Date(delivery.actual_delivery_time);
             return sum + (delivered.getTime() - created.getTime()) / (1000 * 60); // minutes
@@ -441,11 +441,11 @@ export class MedicineDeliveryService {
         : 0;
       
       // Calculate total delivery revenue
-      const totalDeliveryRevenue = deliveries?.reduce((sum, delivery) => sum + delivery.delivery_fee, 0) || 0;
+      const totalDeliveryRevenue = deliveries?.reduce((sum: number, delivery: any) => sum + delivery.delivery_fee, 0) || 0;
       
       // Top delivery areas
       const areaCounts: { [key: string]: number } = {};
-      deliveries?.forEach(delivery => {
+      deliveries?.forEach((delivery: any) => {
         const area = this.extractAreaFromAddress(delivery.customer_address);
         areaCounts[area] = (areaCounts[area] || 0) + 1;
       });
@@ -457,7 +457,7 @@ export class MedicineDeliveryService {
       
       // Delivery partner performance
       const partnerPerformance: { [key: string]: { success: number; total: number; times: number[] } } = {};
-      deliveries?.forEach(delivery => {
+      deliveries?.forEach((delivery: any) => {
         if (delivery.delivery_partner) {
           if (!partnerPerformance[delivery.delivery_partner]) {
             partnerPerformance[delivery.delivery_partner] = { success: 0, total: 0, times: [] };
@@ -563,19 +563,19 @@ export class MedicineDeliveryService {
         throw todayError || allError;
       }
       
-      const pendingDeliveries = allDeliveries?.filter(d => 
+      const pendingDeliveries = allDeliveries?.filter((d: any) => 
         ['pending', 'confirmed', 'preparing', 'out_for_delivery'].includes(d.status)
       ).length || 0;
       
       const todayDeliveriesCount = todayDeliveries?.length || 0;
       
-      const successfulDeliveries = allDeliveries?.filter(d => d.status === 'delivered').length || 0;
+      const successfulDeliveries = allDeliveries?.filter((d: any) => d.status === 'delivered').length || 0;
       const totalDeliveries = allDeliveries?.length || 0;
       const deliverySuccessRate = totalDeliveries > 0 ? Math.round((successfulDeliveries / totalDeliveries) * 100) : 0;
       
-      const deliveredOrders = allDeliveries?.filter(d => d.status === 'delivered' && d.actual_delivery_time) || [];
+      const deliveredOrders = allDeliveries?.filter((d: any) => d.status === 'delivered' && d.actual_delivery_time) || [];
       const avgDeliveryTime = deliveredOrders.length > 0 
-        ? Math.round(deliveredOrders.reduce((sum, delivery) => {
+        ? Math.round(deliveredOrders.reduce((sum: number, delivery: any) => {
             const created = new Date(delivery.created_at);
             const delivered = new Date(delivery.actual_delivery_time);
             return sum + (delivered.getTime() - created.getTime()) / (1000 * 60);
